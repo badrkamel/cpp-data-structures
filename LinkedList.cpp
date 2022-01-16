@@ -6,6 +6,10 @@ class Node {
     public:
         int data;
         Node *next;
+        Node() {
+            data = 0;
+            next = NULL;
+        }
 };
 
 class LinkedList {
@@ -20,16 +24,37 @@ class LinkedList {
         }
 
         void insertFirst(int data) {
-            Node *newItem = new Node();
-            newItem->data = data;
+            Node *newNode = new Node();
+            newNode->data = data;
 
             if (isEmpty()) {
-                newItem->next = NULL;
+                newNode->next = NULL;
             } else {
-                newItem->next = head;
+                newNode->next = head;
             }
 
-            head = newItem;
+            head = newNode;
+        }
+
+        void insertBefore(int item, int data) {
+            if (isEmpty())
+                insertFirst(data);
+            Node *newNode = new Node();
+            newNode->data = data;
+
+            Node *temp = head;
+            
+            while (temp != NULL && temp->next->data != item)
+            {
+                temp = temp->next;
+                if (temp->next == NULL){
+                    cout << "Not found!\n";
+                    return;
+                }
+            }
+
+            newNode->next = temp->next;
+            temp->next = newNode;
         }
 
         void display() {
@@ -81,7 +106,11 @@ int main() {
 
 	lst.insertFirst(10);
 	lst.insertFirst(15);
-	lst.insertFirst(20);
+	lst.insertFirst(25);
+	lst.display();
+	lst.insertBefore(15, 20);
+	lst.display();
+	lst.insertBefore(155, 30);
 	lst.display();
 	cout << "The List contains " << lst.count() << endl;
 
