@@ -73,6 +73,10 @@ class Array {
         }
 
         void Insert(int index, int newItem) {
+            if (!(index >= 0 && index < size)) {
+                cout << "The index not in a vaild range\n";
+                return;
+            }
             if (length < size) {
                 for (int i = length; i > index; i--) {
                     items[i] = items[i-1];
