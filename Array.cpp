@@ -74,7 +74,7 @@ class Array {
 
         void Insert(int index, int newItem) {
             if (!(index >= 0 && index < size)) {
-                cout << "The index not in a vaild range\n";
+                cout << "Index out of array range\n";
                 return;
             }
             if (length < size) {
@@ -86,6 +86,16 @@ class Array {
             } else {
                 cout << "The array is full\n";
             }
+        }
+
+        void Delete(int index) {
+            if (!(index >= 0 && index < size)) {
+                cout << "Index out of array range\n";
+                return;
+            }
+            for (int i = index; i < length-1; i++)
+                items[i] = items[i+1];
+            length--;
         }
 };
 
@@ -101,7 +111,6 @@ int main() {
 
     cout << "Array size = " << myArray.getSize() << " while the length = " << myArray.getLength() << endl;
     myArray.Display();
-
 
     // Search
     int key;
@@ -120,7 +129,7 @@ int main() {
     cin >> newItem;
     myArray.Append(newItem);
     myArray.Display();
-
+    
     // Insert
     int insItem, position;
     cout << "Insert item: ";
@@ -128,5 +137,11 @@ int main() {
     cout << "Position of item: ";
     cin >> position;
     myArray.Insert(position, insItem);
+    myArray.Display();
+
+    int del;
+    cout << "Delete item at index: ";
+    cin >> del;
+    myArray.Delete(del);
     myArray.Display();
 }
