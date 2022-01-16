@@ -51,6 +51,26 @@ class Array {
             return size;
         }
 
+        int Search(int key) {
+            int index = -1;
+
+            for (int i=0; i < length; i ++) {
+                if (key == items[i]){
+                    index = key;
+                    break;
+                }
+            }
+            return index;
+        }
+
+        void Append(int newItem) {
+            if (length < size) {
+                items[length] = newItem;
+                length++;
+            } else {
+                cout << "The array is full\n";
+            }
+        }
 };
 
 int main() {
@@ -64,6 +84,24 @@ int main() {
     myArray.Fill();
 
     cout << "Array size = " << myArray.getSize() << " while the length = " << myArray.getLength() << endl;
+    myArray.Display();
 
+
+    // Search
+    int key;
+    cout << "Enter the item youre loooking for: ";
+    cin >> key;
+    int index = myArray.Search(key);
+    if (index == -1){
+        cout << "Item not found!";
+    } else {
+        cout << "The item index is: " << index<< endl;
+    }
+
+    // Append
+    int newItem;
+    cout << "Enter item to append to the array: ";
+    cin >> newItem;
+    myArray.Append(newItem);
     myArray.Display();
 }
