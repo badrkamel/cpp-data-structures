@@ -71,6 +71,18 @@ class Array {
                 cout << "The array is full\n";
             }
         }
+
+        void Insert(int index, int newItem) {
+            if (length < size) {
+                for (int i = length; i > index; i--) {
+                    items[i] = items[i-1];
+                }
+                items[index] = newItem;
+                length++;
+            } else {
+                cout << "The array is full\n";
+            }
+        }
 };
 
 int main() {
@@ -93,7 +105,7 @@ int main() {
     cin >> key;
     int index = myArray.Search(key);
     if (index == -1){
-        cout << "Item not found!";
+        cout << "Item not found!\n";
     } else {
         cout << "The item index is: " << index<< endl;
     }
@@ -103,5 +115,14 @@ int main() {
     cout << "Enter item to append to the array: ";
     cin >> newItem;
     myArray.Append(newItem);
+    myArray.Display();
+
+    // Insert
+    int insItem, position;
+    cout << "Insert item: ";
+    cin >> insItem;
+    cout << "Position of item: ";
+    cin >> position;
+    myArray.Insert(position, insItem);
     myArray.Display();
 }
