@@ -97,6 +97,40 @@ class Array {
                 items[i] = items[i+1];
             length--;
         }
+
+        void Enlarge(int newSize) {
+            if (newSize <= size) {
+                cout << "Error - the new size must be larger than the old size\n";
+                return;
+            }
+            size = newSize;
+            int *temp = items;
+            items = new int[newSize];
+            for (int i=0; i <length; i++){
+                items[i] = temp[i];
+            }
+            delete[]temp;
+        }
+
+        void Merge(Array other) {
+            int newSize = other.getSize() + size;
+            size = newSize;
+            int *temp = items;
+            items = new int[newSize];
+
+            int i;
+            for (i=0;i<length; i++)
+                items[i] = temp[i];
+            delete[]temp;
+
+            int j=i;
+            for (int i=0; i<other.getLength(); i++){
+                items[j++] = other.items[i];
+                length++;
+            }
+            delete[]other.items;
+        }
+
 };
 
 int main() {
@@ -143,5 +177,18 @@ int main() {
     cout << "Delete item at index: ";
     cin >> del;
     myArray.Delete(del);
+    myArray.Display();
+    
+    int newSize;
+    cout << "Enter the new size: ";
+    cin >> newSize;
+    myArray.Enlarge(newSize);
+    cout << "Array size = " << myArray.getSize() << " while the length = " << myArray.getLength() << endl;
+    myArray.Display();
+	Array other(3);
+	other.Fill();
+	myArray.Merge(other);
+
+	cout << "Array size = " << myArray.getSize() << " while the length = " << myArray.getLength() << endl;
     myArray.Display();
 }
