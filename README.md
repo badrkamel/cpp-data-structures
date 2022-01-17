@@ -18,7 +18,7 @@
 				* DELETE
 				* ENLARGE
 				* MERGE
-			* [Linked List](#table-of-contents-linear-physical-linked-list)
+			* [Linked List](#table-of-contents-linear-physical-linkedlist)
 				* Methods:
 				* CREATE
 				* IS_EMPTY
@@ -30,6 +30,7 @@
 				* IS_FOUND
 				* DELETE
 		* [Stack Array Based Implementation](#table-of-contents-linear-physical-stack-array)
+		* [Stack LinkedList Based Implementation](#table-of-contents-linear-physical-stack-linkedlist)
 
 <a name="table-of-contents-linear"></a>
 <!-- <a name="table-of-contents-linear-array"></a> -->
