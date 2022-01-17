@@ -22,7 +22,7 @@ class Array {
             cin >> no_of_items;
 
             if (no_of_items > size) {
-                cout << "You cannot exceed the array size";
+                cout << "You cannot exceed the array size\n";
                 return;
             }
 
@@ -37,7 +37,7 @@ class Array {
         void Display() {
             cout << "The array content\n";
 
-            for (int i=0; i < length; i++) {
+            for (int i=0; i < length+1; i++) {
                 cout << items[i] << "\t";
             }
             cout << endl;
@@ -95,7 +95,9 @@ class Array {
             }
             for (int i = index; i < length-1; i++)
                 items[i] = items[i+1];
+            items[length-1] = 0;
             length--;
+
         }
 
         void Enlarge(int newSize) {
