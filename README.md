@@ -29,6 +29,7 @@
 				* COUNT
 				* IS_FOUND
 				* DELETE
+		* [Stack Array Based Implementation](#table-of-contents-linear-physical-stack-array)
 
 <a name="table-of-contents-linear"></a>
 <!-- <a name="table-of-contents-linear-array"></a> -->
