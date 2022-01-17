@@ -136,4 +136,18 @@ int main () {
     }
     
     cout << stk.peek() << endl;
+
+        /*
+        Methods:
+            - Create
+            - Push
+            - Pop
+            - isEmpty
+            - isFull
+            - Count
+            - Display
+            - peek
+            - isFound
+
+    */
 }
