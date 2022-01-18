@@ -30,8 +30,9 @@
 				* IS_FOUND
 				* DELETE
 		* [Stack Array Based Implementation](#table-of-contents-linear-physical-stack-array)
-		* [Stack LinkedList Based Implementation](#table-of-contents-linear-physical-stack-linkedlist)
-		* [Queue](#table-of-contents-linear-physical-queue)
+		* [Stack LinkedList Based Implementation](#table-of-contents-linear-stack-linkedlist)
+		* [Queue](#table-of-contents-linear-queue)
+		* [HashTable](#table-of-contents-linear-hashtable)
 		
 <a name="table-of-contents-linear"></a>
 <!-- <a name="table-of-contents-linear-array"></a> -->
