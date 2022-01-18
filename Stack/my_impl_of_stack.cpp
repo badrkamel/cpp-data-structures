@@ -5,6 +5,11 @@ using namespace std;
 struct Node {
     int value;
     Node *next;
+
+    Node (int data) {
+        value=data;
+        next=NULL;
+    }
 };
 
 class Stack {
@@ -14,7 +19,8 @@ class Stack {
     Stack () {
         top = NULL;
     }
-    void push(Node *node) {
+    void push(int data) {
+        Node *node = new Node(data);
         node->next = top;
         top = node;
     }
@@ -22,30 +28,36 @@ class Stack {
     void display() {
         Node *temp = top;
         while (temp != NULL) {
-            cout << temp->value << "\t";
+            cout << "Node: " << temp->value << "\t";
             temp = temp->next;
         }
         cout << endl;
     }
+
+    int pop() {
+        if (top != NULL) {    
+            Node *temp = top;
+            int value = temp->value;
+
+            top = top->next;
+
+            delete temp;
+            return value;
+        }
+        return -1;
+    }
+
 };
 
 
 int main () {
 
-    // ALLOCATE THREE NODES IN THE HEAP
-    Node *one = new Node();
-    Node *two = new Node();
-    Node *three = new Node();
-
-    // Assing value values
-    one->value = 10;
-    two->value = 20;
-    three->value = 30;
-
     Stack stk;
-    stk.push(one);
-    stk.push(two);
-    stk.push(three);
+    stk.push(10);
+    stk.push(20);
+    stk.pop();
+    stk.push(30);
+    stk.pop();
 
     stk.display();
 }
