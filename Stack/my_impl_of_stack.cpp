@@ -15,11 +15,7 @@ class Stack {
         top = NULL;
     }
     void push(Node *node) {
-        if (top==NULL) {
-            node->next = NULL;
-        } else {
-            node->next = top;
-        }
+        node->next = top;
         top = node;
     }
 
