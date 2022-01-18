@@ -31,6 +31,7 @@
 				* DELETE
 		* [Stack Array Based Implementation](#table-of-contents-linear-physical-stack-array)
 		* [Stack LinkedList Based Implementation](#table-of-contents-linear-physical-stack-linkedlist)
-
+		* [Queue](#table-of-contents-linear-physical-queue)
+		
 <a name="table-of-contents-linear"></a>
 <!-- <a name="table-of-contents-linear-array"></a> -->
