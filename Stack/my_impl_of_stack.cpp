@@ -2,10 +2,9 @@
 
 using namespace std;
 
-class Node {
-    public:
-        int value;
-        Node *next;
+struct Node {
+    int value;
+    Node *next;
 };
 
 class Stack {
