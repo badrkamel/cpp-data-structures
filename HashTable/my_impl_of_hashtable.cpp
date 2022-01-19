@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 
 using namespace std;
@@ -17,6 +18,7 @@ class HashTaple {
     int lenght;
     int i; // for collison
     int *items;
+    const double A = (sqrt(5)-1)/2;
 
 public:
     HashTaple (int v) {
@@ -27,20 +29,11 @@ public:
     }
 
     int Hash(int key) {
-        int ind = key%BUCKET;
 
-        if (items[ind] == 0) {
-            // cout << "Index: " << ind << endl;
-            ind = key%BUCKET;
-        } else {
-            while (items[ind] != 0) {
-                // cout << "Repeated index: " << ind << endl;
-                ind = ((key + (i*i)) % BUCKET);
-                i++;
-            }
-        }
-
-        return ind;
+        double KA = (key*A);
+        double f = KA-(int)KA;
+        
+        return (floor(f*BUCKET));
     }
 
     void insert(Ht_item *ht_item) {
@@ -53,12 +46,20 @@ public:
         int value = ht_item->value;
 
         int ind = Hash(key);
+        if (items[ind] != 0) {
+            while (items[ind] != 0) {
+                // cout << "Repeated index: " << ind << endl;
+                ind = ((key + (i*i)) % BUCKET);
+                i++;
+            }
+        }
         items[ind] = value;
         lenght++;
     }
 
     void getItem(int key) {
-        cout << "Value: " << items[key%BUCKET] << endl;
+        int ind = Hash(key);
+        cout << "Value: " << items[ind] << endl;
     }
 
     void display() {
@@ -72,6 +73,7 @@ public:
 };
 
 int main () {
+
     cout << "HashTable ADT\n";
 
     // Create empty hashtable with 10 buckets
@@ -88,6 +90,8 @@ int main () {
 
     // Retrieve item from the hashtable by his key
     h.getItem(27);
+    h.getItem(33);
+    h.getItem(13);
     
     h.display();
 }
