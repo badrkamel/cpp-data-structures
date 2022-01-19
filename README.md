@@ -6,33 +6,16 @@
 	* [Linear Data Structure](#table-of-contents-linear)
 		* [Physical](#table-of-contents-linear-physical)
 			* [Array](#table-of-contents-linear-physical-array)
-				* Methods:
-				* CREATE
-				* FILL
-				* DISPLAY
-				* GET_LENGTH
-				* GET_SIZE
-				* SEARCH
-				* APPEND
-				* INSERT
-				* DELETE
-				* ENLARGE
-				* MERGE
 			* [Linked List](#table-of-contents-linear-physical-linkedlist)
-				* Methods:
-				* CREATE
-				* IS_EMPTY
-				* INSERT_FIRST
-				* INSERT_BEFORE
-				* APPEND
-				* DISPLAY
-				* COUNT
-				* IS_FOUND
-				* DELETE
 		* [Stack Array Based Implementation](#table-of-contents-linear-physical-stack-array)
 		* [Stack LinkedList Based Implementation](#table-of-contents-linear-stack-linkedlist)
 		* [Queue](#table-of-contents-linear-queue)
 		* [HashTable](#table-of-contents-linear-hashtable)
+			- Collision resolution by chaining
+			- Hash function using multiplication method <br>```h(k) = ⌊m(kA mod 1)⌋```
+			<br>`A` is any constant. The value of `A` lies between `0` and `1`.
+			<br>But, an optimal choice will be `≈ (√5-1)/2` suggested by Knuth.
+			
 		
 <a name="table-of-contents-linear"></a>
 <!-- <a name="table-of-contents-linear-array"></a> -->
