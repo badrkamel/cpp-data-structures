@@ -13,52 +13,57 @@ struct Ht_item {
 };
 
 class HashTaple {
-    int size;
+    int BUCKET;
     int lenght;
     int i; // for collison
     int *items;
 
 public:
-    HashTaple (int SIZE) {
-        size = SIZE;
+    HashTaple (int v) {
+        BUCKET = v;
         lenght = 0;
         i = 1;
-        items = new int [size];
+        items = new int [BUCKET];
     }
 
-    void hash(Ht_item *ht_item) {
+    int Hash(int key) {
+        int ind = key%BUCKET;
 
-        if (lenght == size) {
-            cout << "The heap is full\n";
+        if (items[ind] == 0) {
+            // cout << "Index: " << ind << endl;
+            ind = key%BUCKET;
+        } else {
+            while (items[ind] != 0) {
+                // cout << "Repeated index: " << ind << endl;
+                ind = ((key + (i*i)) % BUCKET);
+                i++;
+            }
+        }
+
+        return ind;
+    }
+
+    void insert(Ht_item *ht_item) {
+
+        if (lenght == BUCKET) {
+            cout << "The HashTaple is full\n";
             return;
         }
         int key = ht_item->key;
         int value = ht_item->value;
 
-        int ind = key%size;
-
-        if (items[ind] == 0) {
-            cout << "Index: " << ind << endl;
-            ind = key%size;
-        } else {
-            while (items[ind] != 0) {
-                cout << "Repeated index: " << ind << endl;
-                ind = ((key + (i*i)) % size);
-                i++;
-            }
-            
-        }
+        int ind = Hash(key);
         items[ind] = value;
         lenght++;
     }
 
     void getItem(int key) {
-        cout << "Value: " << items[key%size] << endl;
+        cout << "Value: " << items[key%BUCKET] << endl;
     }
 
     void display() {
         cout << "HashTable Length is: " << lenght << endl;
-        for (int i=0; i<size; i++) {
+        for (int i=0; i<BUCKET; i++) {
             cout << i << "-> " << items[i] << " ";
         }
         cout << endl;
@@ -69,16 +74,16 @@ public:
 int main () {
     cout << "HashTable ADT\n";
 
-    // Create empty hashtable
+    // Create empty hashtable with 10 buckets
     HashTaple h(10);
 
-    int keys[] = {23,27,27,13,13,13,27,27,25,55,105};
+    int keys[] = {23,27,37,13,33,43,47,57,52,55,105};
     int values[] = {10,15,20,25,30,35,40,45,50,55,60};
 
     // Hashing the keys with their values
     for (int i=0; i<11; i++) {
         Ht_item *ht_item = new Ht_item(keys[i], values[i]);
-        h.hash(ht_item);
+        h.insert(ht_item);
     }
 
     // Retrieve item from the hashtable by his key
