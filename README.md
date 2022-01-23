@@ -21,9 +21,10 @@
 			<br>But, an optimal choice will be `≈ (√5-1)/2` suggested by Knuth.
 	* [Non-Linear Data Structure](#table-of-contents-non-linear)
 		* [Trees](#table-of-contents-non-linear-trees)
-			* [Heap](#table-of-contents-non-linear-trees)
+			* [Heap](#table-of-contents-non-linear-trees-heap)
 				* MIN-Heap
 				* MAX-Heap
+			* [Binary Search tree](#table-of-contents-non-linear-trees-bst)
 		* [Graph](#table-of-contents-non-linear-graph)
 			
 		
