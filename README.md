@@ -15,7 +15,7 @@
 				* Priority Queue
 				* Deque
 		* [HashTable](#table-of-contents-linear-hashtable)
-			- Collision resolution by chaining
+			- Collision resolution by Open Addressing
 			- Hash function using multiplication method <br>```h(k) = ⌊m(kA mod 1)⌋```
 			<br>`A` is any constant. The value of `A` lies between `0` and `1`.
 			<br>But, an optimal choice will be `≈ (√5-1)/2` suggested by Knuth.
