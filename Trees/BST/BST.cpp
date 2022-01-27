@@ -175,9 +175,36 @@ struct BST
 		preOrder(pNode->right);
 	}
 	void preOrder() {
-		cout << " - PRE_Order using Recursion :: [ ";
+		cout << " - PRE_OrderRec :: [ ";
 		preOrder(root);
 		cout << "]\n";
+	}
+
+	/* print InOrder binary tree traversal.*/
+	void inOrder(Node *pNode) {
+		if (pNode==NULL) {
+			return;
+		}
+		inOrder(pNode->left);
+		cout << pNode->value << " ";
+		inOrder(pNode->right);
+	}
+	void inOrder() {
+		cout << " - IN_OrderRec :: [ ";
+		inOrder(root);
+		cout << "]\n";
+	}
+
+	/* Invert the tree */
+	void invert(Node *pNode) {
+		if (!pNode)
+			return;
+		Node *temp = pNode->left;
+		/* swap the pointers in this node */
+		pNode->left = pNode->right;
+		pNode->right = temp;
+		invert(pNode->left);
+		invert(pNode->right);
 	}
 
 	void asc_inOrderIter() {
@@ -308,6 +335,7 @@ int main() {
 		Functions :\n\
 		Insert  (Recursively & Iteratively)\n\
 		preOrder (Recursively)\n\
+		inOrder (Recursively)\n\
 		inOrderIter (Iteratively) \n\
 		MIN_Node\n\
 		MAX_Node\n\
@@ -333,9 +361,15 @@ int main() {
 
 	Node *root = tree.root;
 
-	tree.preOrder();
-	tree.asc_inOrderIter();
-	tree.desc_inOrderIter();
+	tree.inOrder();
+	// tree.asc_inOrderIter();
+	tree.invert(root);
+	cout << " - Tree inverted\n";
+	// tree.asc_inOrderIter();
+	tree.inOrder();
+
+
+	// tree.desc_inOrderIter();
 
 	Node *min = tree.MIN_Node(root);
 	if (min != NULL) {
