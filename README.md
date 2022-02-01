@@ -27,6 +27,8 @@
 			* [Binary Search tree](#table-of-contents-non-linear-trees-bst)
 		* [Graph](#table-of-contents-non-linear-graph)
 			
-		
+![Data Structure](https://he-s3.s3.amazonaws.com/media/uploads/c14cb1f.JPG)
+
+
 <a name="table-of-contents-linear"></a>
 <a name="table-of-contents-non-linear"></a>
