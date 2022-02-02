@@ -25,6 +25,7 @@
 				* MIN-Heap
 				* MAX-Heap
 			* [Binary Search tree](#table-of-contents-non-linear-trees-bst)
+			* [AVL Tree](#table-of-contents-non-linear-trees-avltree)
 		* [Graph](#table-of-contents-non-linear-graph)
 			
 ![Data Structure](https://he-s3.s3.amazonaws.com/media/uploads/c14cb1f.JPG)
