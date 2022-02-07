@@ -13,57 +13,6 @@ struct Node {
     }
 };
 
-struct STACK_Node {
-    Node *nodePtr;
-    STACK_Node *next;
-    STACK_Node(Node *node) {
-        nodePtr = node;
-        next = NULL;
-    }
-};
-// Stack ADT to traverse iteratively
-struct Stack {
-
-    STACK_Node *top = NULL;
-
-    void push(Node *node) {
-        STACK_Node *stack_node = new STACK_Node(node);
-        stack_node->next = top;
-        top = stack_node;
-    }
-
-    int pop() {
-        if (top) {    
-            STACK_Node *temp = top;
-            int value = temp->nodePtr->value;
-
-            top = top->next;
-
-            delete temp;
-            cout << value << " ";
-            return value;
-        }
-        return -1;
-    }
-
-    int peek() {
-        if (top)
-            return top->nodePtr->value;
-        return -1;
-    }
-
-    void display() {
-        STACK_Node *temp = top;
-        cout << "Stack nodes :: [ ";
-        while (temp) {
-            cout << temp->nodePtr->value << " ";
-            temp = temp->next;
-        }
-        cout << "]\n";
-    }
-};
-
-
 struct BST
 {
     int size;
