@@ -2,28 +2,27 @@
 
 using namespace std;
 
-class Node {
-    public:
-        int data;
-        Node *next;
-        Node() {
-            data = 0;
-            next = NULL;
-        }
+template<typename T>
+struct Node {
+    T data;
+    Node<T> *next = NULL;
+    Node(T v) {
+        data = v;
+    }
 };
 
+template<typename T>
 class LinkedList {
 
-    Node *head = NULL;
+    Node<T> *head = NULL;
 
 public:
     bool isEmpty() {
         return (head==NULL);
     }
 
-    void insertFirst(int data) {
-        Node *newNode = new Node();
-        newNode->data = data;
+    void insertFirst(T data) {
+        Node<T> *newNode = new Node<T>(data);
 
         if (isEmpty()) {
             newNode->next = NULL;
@@ -34,13 +33,12 @@ public:
         head = newNode;
     }
 
-    void insertBefore(int item, int data) {
+    void insertBefore(T item, T data) {
         if (isEmpty())
             insertFirst(data);
-        Node *newNode = new Node();
-        newNode->data = data;
+        Node<T> *newNode = new Node<T>(data);
 
-        Node *temp = head;
+        Node<T> *temp = head;
         
         while (temp != NULL && temp->next->data != item)
         {
@@ -55,15 +53,14 @@ public:
         temp->next = newNode;
     }
 
-    void append(int data) {
+    void append(T data) {
         if (isEmpty())
             insertFirst(data);
 
-        Node *newNode = new Node();
-        newNode->data = data;
+        Node<T> *newNode = new Node<T>(data);
         newNode->next = NULL;
 
-        Node *temp = head;
+        Node<T> *temp = head;
         
         while (temp->next != NULL)
         {
@@ -76,9 +73,9 @@ public:
     void reverse() {
         if (!head)
             return;
-        Node *current = head;
-        Node *next = NULL;
-        Node *prev = NULL;
+        Node<T> *current = head;
+        Node<T> *next = NULL;
+        Node<T> *prev = NULL;
 
         while (current) {
             next = current->next;
@@ -90,7 +87,7 @@ public:
     }
 
     void display() {
-        Node *temp = head;
+        Node<T> *temp = head;
         
         while (temp != NULL)
         {
@@ -103,7 +100,7 @@ public:
     int count() {
 
         int counter = 0;
-        Node *temp = head;
+        Node<T> *temp = head;
         while (temp != NULL)
         {
             counter++;
@@ -115,7 +112,7 @@ public:
     bool isFound(int key) {
 
         bool found = false;
-        Node *temp = head;
+        Node<T> *temp = head;
         while (temp != NULL)
         {
             if (key == temp->data)
@@ -125,17 +122,17 @@ public:
         return found;
     }
 
-    void Delete(int item) {
+    void Delete(T item) {
         if (isEmpty()){
             cout << "LinkedList is empty\n";
             return;
         }
-        Node *ptr = head;
+        Node<T> *ptr = head;
         if (item == head->data) {
             head = head->next;
             delete ptr;
         } else {
-            Node *prev = NULL;
+            Node<T> *prev = NULL;
             while (ptr->data != item)
             {
                 prev = ptr;
@@ -149,7 +146,7 @@ public:
 
 int main() {
 
-    LinkedList lst;
+    LinkedList<string> lst;
 
     if (lst.isEmpty()) {
         cout << "The list is empty\n";
@@ -157,15 +154,15 @@ int main() {
         cout << "List contains " << lst.count() << "items.\n";
     }
 
-    lst.insertFirst(10);
-    lst.insertFirst(15);
-    lst.insertFirst(25);
+    lst.insertFirst("two");
+    lst.insertFirst("three");
+    lst.insertFirst("five");
     lst.display();
-    lst.insertBefore(15, 20);
+    lst.insertBefore("three", "four");
     lst.display();
-    lst.append(5);
+    lst.append("one");
     lst.display();
-    lst.Delete(20);
+    lst.Delete("five");
     cout << "The List contains: " << lst.count() << endl;
     lst.display();
 
