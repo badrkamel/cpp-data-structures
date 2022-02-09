@@ -44,6 +44,11 @@ public:
         return m_Data[index];
     }
 
+    void display() {
+        for (size_t i{}; i < m_Size;i++)
+            std::cout << m_Data[i] << " ";
+        std::cout << "\n";
+    }
 
 private:
     void reAlloc(size_t newCapacity)
