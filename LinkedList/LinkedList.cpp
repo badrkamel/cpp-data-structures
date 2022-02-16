@@ -1,50 +1,41 @@
 #include <iostream>
 
-using namespace std;
-
-template<typename T>
-struct Node {
+template<typename T> struct Node {
     T data;
-    Node<T> *next = NULL;
+    Node *next = NULL;
     Node(T v) {
         data = v;
     }
 };
 
-template<typename T>
-class LinkedList {
+template<typename T> class LinkedList {
 
     Node<T> *head = NULL;
 
 public:
     bool isEmpty() {
-        return (head==NULL);
+        return (head == NULL);
     }
 
     void insertFirst(T data) {
         Node<T> *newNode = new Node<T>(data);
 
-        if (isEmpty()) {
-            newNode->next = NULL;
-        } else {
-            newNode->next = head;
-        }
-
+        newNode->next = head;
         head = newNode;
     }
 
     void insertBefore(T item, T data) {
-        if (isEmpty())
+        if (head == NULL)
             insertFirst(data);
-        Node<T> *newNode = new Node<T>(data);
 
+        Node<T> *newNode = new Node<T>(data);
         Node<T> *temp = head;
         
         while (temp != NULL && temp->next->data != item)
         {
             temp = temp->next;
             if (temp->next == NULL){
-                cout << "Not found!\n";
+                std::cout << "Not found!\n";
                 return;
             }
         }
@@ -58,7 +49,6 @@ public:
             insertFirst(data);
 
         Node<T> *newNode = new Node<T>(data);
-        newNode->next = NULL;
 
         Node<T> *temp = head;
         
@@ -91,10 +81,10 @@ public:
         
         while (temp != NULL)
         {
-            cout << temp->data << "\t";
+            std::cout << temp->data << "\t";
             temp = temp->next;
         }
-        cout << endl;
+        std::cout << "\n";
     }
 
     int count() {
@@ -124,50 +114,51 @@ public:
 
     void Delete(T item) {
         if (isEmpty()){
-            cout << "LinkedList is empty\n";
+            std::cout << "LinkedList is empty\n";
             return;
         }
         Node<T> *ptr = head;
         if (item == head->data) {
             head = head->next;
-            delete ptr;
-        } else {
+        }
+        else
+        {
             Node<T> *prev = NULL;
-            while (ptr->data != item)
+            while (ptr && ptr->data != item)
             {
                 prev = ptr;
                 ptr = ptr->next;
             }
-            prev->next = ptr->next;
-
+            if (ptr && ptr->data == item)
+                prev->next = ptr->next;
         }
+        delete ptr;
     }
 };
 
 int main() {
 
-    LinkedList<string> lst;
+    LinkedList<std::string> list;
 
-    if (lst.isEmpty()) {
-        cout << "The list is empty\n";
+    if (list.isEmpty()) {
+        std::cout << "The list is empty\n";
     } else {
-        cout << "List contains " << lst.count() << "items.\n";
+        std::cout << "List contains " << list.count() << "items.\n";
     }
 
-    lst.insertFirst("two");
-    lst.insertFirst("three");
-    lst.insertFirst("five");
-    lst.display();
-    lst.insertBefore("three", "four");
-    lst.display();
-    lst.append("one");
-    lst.display();
-    lst.Delete("five");
-    cout << "The List contains: " << lst.count() << endl;
-    lst.display();
-
-    cout << "LinkedList After reverse: \n";
-    lst.reverse();
-    lst.display();
+    list.insertFirst("two");
+    list.insertFirst("three");
+    list.insertFirst("five");
+    list.display();
+    list.insertBefore("three", "four");
+    list.display();
+    list.append("one");
+    list.display();
+    list.Delete("five");
+    std::cout << "The List contains: " << list.count() << std::endl;
+    list.display();
+    std::cout << "LinkedList After reverse: \n";
+    list.reverse();
+    list.display();
 
 }
