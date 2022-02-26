@@ -29,7 +29,7 @@ public:
     void add(int);
     void print();
     void reheapUp(int);
-    void reheapDown();
+    void reheapDown(int);
     void sort();
 };
 
@@ -61,7 +61,7 @@ void MinHeap::reheapUp(int index) {
     }
 }
 
-void MinHeap::reheapDown() {
+void MinHeap::reheapDown(int size) {
     size_t index = 0;
     size_t rightChildIndex = 2, leftChildIndex = 1;
     while (leftChildIndex<size) {
@@ -81,14 +81,10 @@ void MinHeap::reheapDown() {
 }
 
 void MinHeap::sort() {
-    size_t s = size;
-    while (size) {
-        std::swap(heap[0], heap[size-1]);
-        heap[size-1] = INT32_MAX;
-        reheapDown();
-        size--;
+    for (int i = size-1; i >= 0; i--) {
+        std::swap(heap[0], heap[i]);
+        reheapDown(i);
     }
-    size = s;
 }
 
 void MinHeap::print() {
