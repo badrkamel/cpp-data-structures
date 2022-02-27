@@ -1,59 +1,148 @@
 // Doubly Linked list implementation in C++
 
 #include <iostream>
-using namespace std;
 
-// Creating a node
-class Node {
+struct Node {
+	int val;
+
+	Node *next = nullptr;
+	Node *prev = nullptr;
+
+	Node (int x) : val(x) {}
+};
+
+class DoublyLinkedList {
+
+	Node *head = nullptr;
 	public:
-	int value;
-	Node* next;
-	Node* prev;
+		// Add node
+	void insert_first(int);
+	void insert_before(int,int);
+	void append(int);
+
+		// Delete node
+	void del(int);
+	void delete_front();
+	void delete_back();
+
+		// display
+	void print();
 };
 
 int main() {
-	Node* head;
-	Node* one = NULL;
-	Node* two = NULL;
-	Node* three = NULL;
+	DoublyLinkedList list;
 
-	// allocate 3 nodes in the heap
-	one = new Node();
-	two = new Node();
-	three = new Node();
+	list.insert_first(20);
+	list.insert_first(40);
+	list.print();
 
-	// Assign value values
-	one->value = 1;
-	two->value = 2;
-	three->value = 3;
+	list.insert_before(20, 30);
+	list.print();
 
-	// Connect nodes
-	one->next = two;
-	one->prev = NULL;
+	list.append(10);
+	list.print();
 
-	two->next = three;
-	two->prev = one;
+	list.del(30);
+	list.print();
 
-	three->next = NULL;
-	three->prev = two;
+	list.delete_back();
+	list.print();
 
-	// print the linked list value
-	head = one;
-	while (head != NULL) {
-		cout << head->value <<"\t";
-		head = head->next;
+	list.delete_front();
+	list.print();
+}
+
+void DoublyLinkedList::insert_first(int val) {
+	Node *node = new Node(val);
+	if (head) {
+		head->prev = node;
+		node->next = head;
+	}	
+	head = node;
+}
+
+void DoublyLinkedList::print() {
+	Node *temp = head;
+	while (temp) {
+		std::cout << temp->val << " -> ";
+		temp = temp->next;
 	}
-	cout << endl;
+	std::cout << "NULL\n";
+}
 
-	head = one;
-	while (head != NULL) {
-		if (head->prev == NULL) {
-			cout << head->value << " prev: 0\t";
-			head = head->next;
-		} 
-		cout << head->value << " prev:" << head->prev->value  <<"\t";
-		head = head->next;
+void DoublyLinkedList::insert_before(int item, int val) {
+	if (!head)
+		return;
+	if (head->val == item)
+		insert_first(val);
+	else {
+		Node *node_before = head;
+		while (node_before->next && node_before->next->val != item)
+			node_before = node_before->next;
+
+		if (node_before->next && node_before->next->val == item) {
+			Node *node = new Node(val);
+			node->next = node_before->next;
+			node_before->next = node;
+		}
 	}
+}
 
-	cout << endl;
+void DoublyLinkedList::append(int val) {
+	Node *last = head;
+
+	while (last->next)
+		last = last->next;
+
+	Node *node = new Node(val);
+	last->next = node;
+}
+
+void DoublyLinkedList::del(int val)  {
+
+	if (!head)
+		return;
+	if (head->val == val)
+		delete_front();
+	else {
+
+		Node *node_before = head;
+
+		while (node_before->next && node_before->next->val != val)
+			node_before = node_before->next;
+
+		if (node_before->next && node_before->next->val == val) {
+			Node *temp = node_before->next;
+			node_before->next = node_before->next->next;
+			delete temp;
+		}
+	}
+}
+
+void DoublyLinkedList::delete_front() {
+	if (!head)
+		return;
+
+	Node *temp = head;
+	head = head->next;
+	delete temp;
+}
+
+void DoublyLinkedList::delete_back() {
+
+	if (!head)
+		return;
+	if (!head->next)
+		delete_front();
+	else {
+			
+		Node *temp = head;
+
+		while (temp->next && temp->next->next)
+			temp = temp->next;
+
+		Node *deleted = temp->next;
+		temp->next = nullptr;
+		delete deleted;
+	}
 }
