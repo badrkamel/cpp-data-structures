@@ -80,11 +80,11 @@ void SinglyLinkedList::insert_before(int item, int val) {
 
 		Node *node_before = head;
 
-		while (node_before->next && node_before->next != rear && node_before->next->val != item) {
+		while (node_before->next != rear && node_before->next->val != item) {
 			node_before = node_before->next;
 		}
 
-		if (node_before->next && node_before->next->val == item) {
+		if (node_before->next->val == item) {
 			Node *node = new Node(val);
 			node->next = node_before->next;
 			node_before->next = node;
