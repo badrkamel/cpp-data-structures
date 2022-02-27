@@ -63,7 +63,7 @@ void CircularSinglyLinkedList::insert_first(int val) {
 
 	Node *node = new Node(val);
 	if (!head) {
-		head = rear = node;
+		head = rear = node->next = node;
 	} 
 	else {
 		node->next = head;
