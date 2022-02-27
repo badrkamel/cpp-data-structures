@@ -7,20 +7,20 @@ struct Node {
 	Node (int x) : val(x) {}
 };
 
-class SinglyLinkedList {
+class CircularSinglyLinkedList {
+
 	Node *head = nullptr;
 	Node *rear = nullptr;
-
 	public:
 	// add node
-	void insert_first(int); // O(1)
-	void insert_before(int,int); // O(n)
-	void append(int); // O(1)
+	void insert_first(int);       // O(1)
+	void insert_before(int,int);  // O(n)
+	void append(int);             // O(1)
 
 	// delete node
-	void del(int); // O(n)
-	void delete_front(); // O(1)
-	void delete_back(); // O(n)
+	void del(int);                // O(n)
+	void delete_front();          // O(1)
+	void delete_back();           // O(n)
 
 	// display
 	void print();
@@ -28,12 +28,13 @@ class SinglyLinkedList {
 
 int main() {
 
-	std::cout << "Singly LinkedList\n";
+	std::cout << "Circular Singly LinkedList\n";
 
-	SinglyLinkedList list;
+	CircularSinglyLinkedList list;
 
 	list.insert_first(20);
 	list.insert_first(40);
+
 	list.print();
 
 	list.insert_before(20, 30);
@@ -50,6 +51,7 @@ int main() {
 
 	list.delete_front();
 	list.print();
+
 	list.insert_before(20, 40);
 	list.insert_before(20, 30);
 	list.append(10);
@@ -57,7 +59,7 @@ int main() {
 }
 
 
-void SinglyLinkedList::insert_first(int val) {
+void CircularSinglyLinkedList::insert_first(int val) {
 
 	Node *node = new Node(val);
 	if (!head) {
@@ -70,7 +72,7 @@ void SinglyLinkedList::insert_first(int val) {
 	}
 }
 
-void SinglyLinkedList::insert_before(int item, int val) {
+void CircularSinglyLinkedList::insert_before(int item, int val) {
 
 	if (!head)
 		return;
@@ -92,15 +94,16 @@ void SinglyLinkedList::insert_before(int item, int val) {
 	}
 }
 
-void SinglyLinkedList::append(int val) {
+void CircularSinglyLinkedList::append(int val) {
 
 	Node *node = new Node(val);
 
 	rear->next = node;
 	rear = node;
+	rear->next = head;
 }
 
-void SinglyLinkedList::del(int item) {
+void CircularSinglyLinkedList::del(int item) {
 	if (!head)
 		return;
 
@@ -109,11 +112,11 @@ void SinglyLinkedList::del(int item) {
 	} else {
 
 		Node *prev = head;
-		while (prev->next && prev->next->val != item) {
+		while (prev->next->val != item) {
 			prev = prev->next;
 		}
 
-		if (prev->next && prev->next->val == item) {
+		if (prev->next->val == item) {
 			Node *temp = prev->next;
 			prev->next = prev->next->next;
 			delete temp;
@@ -121,38 +124,36 @@ void SinglyLinkedList::del(int item) {
 	}
 }
 
-void SinglyLinkedList::delete_front() {
+void CircularSinglyLinkedList::delete_front() {
 	if (!head)
 		return;
 
 	Node *temp = head;
 	head = head->next;
+	rear->next = head;
 	delete temp;
 }
 
-void SinglyLinkedList::delete_back() {
+void CircularSinglyLinkedList::delete_back() {
 	if (!head)
 		return;
-	Node *prev = head;
 
-	while (prev->next && prev->next != rear)
-		prev = prev->next;
+	if (head == rear)
+		delete_front();
+	else {
+		Node *prev = head;
 
-	if (prev->next) {
+		while (prev->next != rear)
+			prev = prev->next;
 
 		Node *temp = rear;
 		rear = prev;
 		rear->next = head;
 		delete temp;
-
-	}
-	else {
-		delete head;
-		head = nullptr;
 	}
 }
 
-void SinglyLinkedList::print() {
+void CircularSinglyLinkedList::print() {
 	Node *temp = head;
 	while (temp != rear) {
 		std::cout << temp->val << " -> ";
