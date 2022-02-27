@@ -7,3 +7,10 @@
   * Singly Linked List.
   * Doubly Linked List.
   * Circular Linked List.
+
+ [problems] Common problems.
+  * Remove Nth Node From End of List
+  * Merge Two Sorted Lists
+  * Remove Duplicates from Sorted List
+  * Delete the Middle Node of a Linked List
+  * Palindrome Linked List
