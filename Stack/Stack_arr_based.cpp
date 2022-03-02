@@ -4,15 +4,14 @@ using namespace std;
 
 class Stack {
     private:
-    int top;
-    int size;
+    size_t capacity;
+    size_t top;
     int *items;
 
     public:
-    Stack (int MAX_SIZE) {
+    Stack (size_t c) : capacity(c) {
         top = 0;
-        size = MAX_SIZE;
-        items = new int[MAX_SIZE];
+        items = new int[c];
     }
 
     void push(int value) {
@@ -26,12 +25,11 @@ class Stack {
     }
 
     void pop() {
-        items[top-1] = 0;
-        top--;
+        items[--top] = 0;
     }
 
     bool isFull() {
-        return (top==size);
+        return (top==capacity);
     }
 
     bool isEmpty() {
@@ -73,14 +71,14 @@ int main () {
 
 
     // Check if stack is empty
-    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack have " << stk.count() << " elements\n";
+    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack has " << stk.count() << " elements\n";
 
     // Push data
     stk.push(10);
     stk.push(20);
     stk.push(30);
 
-    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack have " << stk.count() << " elements\n";
+    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack has " << stk.count() << " elements\n";
 
     // Display stack data
     stk.display();
@@ -93,7 +91,7 @@ int main () {
 
     // Pop
     stk.pop();
-    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack have " << stk.count() << " elements\n";
+    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack has " << stk.count() << " elements\n";
     stk.display();
 
     /*
