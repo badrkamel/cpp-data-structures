@@ -108,13 +108,18 @@ void CircularDoublyLinkedList::insert_before(int item, int val) {
 }
 
 void CircularDoublyLinkedList::append(int val) {
-	Node *node = new Node(val);
+	
+	if (!head)
+		insert_first(val);
+	else {
+		Node *node = new Node(val);
 
-	node->prev = rear;
-	node->next = rear->next;
-	rear->next= node;
-	rear = node;
-	head->prev = rear;
+		node->prev = rear;
+		node->next = rear->next;
+		rear->next= node;
+		rear = node;
+		head->prev = rear;
+	}
 }
 
 void CircularDoublyLinkedList::del(int item) {
