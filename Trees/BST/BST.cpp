@@ -5,43 +5,38 @@ using namespace std;
 // Tree Node
 struct Node {
     int value;
-    Node *left, *right;
-
-    Node (int v) {
-        value = v;
-        left = right = NULL;
-    }
+    Node *left = nullptr;
+    Node *right = nullptr;
+    
+    Node ();
+    Node (int v) : value(v) {}
 };
 
-struct BST
+class BST
 {
-    int size;
-    int depth;
-    Node *root;
+    size_t size{};
+    size_t depth{};
+    
+public:
+    Node *root = nullptr;
 
-    BST () {
-        size = 0;
-        depth = 0;
-        root = NULL;
-    }
-
-    Node *insertRec(Node *pNode, int value, int &d) {
-        if (pNode==NULL) {
+    Node *insertRec(Node *p, int value, size_t &d) {
+        if (p == NULL) {
             Node *node = new Node(value);
-            pNode = node;
+            p = node;
         } else {
-            if (value < pNode->value) {
-                pNode->left = insertRec(pNode->left, value, d);
+            if (value < p->value) {
+                p->left = insertRec(p->left, value, d);
             } else {
-                pNode->right = insertRec(pNode->right, value, d);
+                p->right = insertRec(p->right, value, d);
             }
         }
         d++;
-        return pNode;
+        return p;
     }
 
     void insertRec(int value) {
-        int d = 0;
+        size_t d{};
         root = insertRec(root, value, d);
 
         if (depth<d)
@@ -52,7 +47,7 @@ struct BST
 
     void insertIter(int value) {
         Node *node = new Node(value);
-        int depth = 1;
+        size_t depth = 1;
         if (!root) {
             root = node;
         } else {
@@ -83,33 +78,17 @@ struct BST
         size++;
     }
 
-    bool searchRec(Node *pnode, int key) {
-        if (pnode==NULL) {
-            printf(" - (%d) Not found\n", key);
-            return false;
-        } else if (pnode->value==key) {
-            printf(" - (%d) found\n", key);
-            return true;
-        } else {
-            if (key < pnode->value)
-                return searchRec(pnode->left, key);
-            else
-                return searchRec(pnode->right, key);
-        }
-    }
+    bool search(Node *p, int key) {
 
-    bool searchIter(int key) {
-
-        Node *temp = root;
-        while(temp) {
-            if (key==temp->value){
+        while(p) {
+            if (key == p->value){
                 printf(" - (%d) found\n", key);
                 return true;
             }
-            else if (key<temp->value)
-                temp = temp->left;
+            else if (key < p->value)
+                p = p->left;
             else 
-                temp = temp->right;
+                p = p->right;
         }
         printf(" - (%d) Not found\n", key);
         return false;
@@ -160,21 +139,21 @@ struct BST
 
         Node *temp = root;
         if (temp) {
-            int i = 0;
-            Node *s[depth];
+            size_t i{};
+            Node *stk[depth];
             cout << " - IN_Order using stack  :: [ ";
             do
             {
                 while (temp)
                 {
-                    s[i] = temp;
+                    stk[i] = temp;
                     i++;
                     temp = temp->left;
                 }
                 i--;
                 if (i==-1) break;
-                temp = (*s[i]).right;
-                cout << (*s[i]).value << " ";
+                temp = (*stk[i]).right;
+                cout << (*stk[i]).value << " ";
 
             } while (true);
             cout << "]\n";
@@ -270,6 +249,7 @@ int main() {
         preOrder (Recursively)
         inOrder (Recursively)
         inOrderIter (Iteratively)
+        Search
         MIN_Node
         MAX_Node
         TreeDepthRec
@@ -279,7 +259,7 @@ int main() {
     );
 
     BST tree;
-    cout << " - BST Created\n";
+    cout << "\n\n - BST Created\n";
 
     /*
         Insert values into BST (
@@ -295,11 +275,12 @@ int main() {
     Node *root = tree.root;
 
     tree.inOrder();
-    tree.asc_inOrderIter();
     tree.invert(root);
     cout << " - Tree inverted\n";
     tree.asc_inOrderIter();
-    tree.inOrder();
+    tree.invert(root);
+    cout << " - Tree inverted\n";
+
 
 
     // tree.desc_inOrderIter();
@@ -314,8 +295,8 @@ int main() {
         cout << " - The Maximun Value Is: " << max->value << endl;
     }
 
-    tree.searchRec(root, 4);
-    tree.searchIter(6);
+    tree.search(root, 4);
+    tree.search(root, 6);
 
     // Remove some nodes
     for (int i: {6,95}) {
@@ -334,5 +315,4 @@ int main() {
     }
 
     printf(" - Depth %d, Size %d\n", tree.TreeDepthRec(root), tree.get_size());
-
 }
