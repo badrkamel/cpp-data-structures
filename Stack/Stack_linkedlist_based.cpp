@@ -1,128 +1,53 @@
 #include <iostream>
 
-using namespace std;
-
-struct Node {
-    int val;
+template<typename T> struct Node {
+    T val;
     Node *next = nullptr;
 
     Node () {}
-    Node (int v) : val(v) {}
+    Node (const T& v) : val(v) {}
 };
 
-class Stack {
-    Node *head;
-
-    size_t CAPACITY;
-    size_t top;
+template<typename T>  class Stack {
+    Node<T> *top;
 
     public:
-    Stack(size_t c) : CAPACITY(c) {
-        top = 0;
-        head = nullptr;
+    Stack () {
+        top = nullptr;
     }
 
-    void push(int val) {
-        if (isFull()) {
-            cout << "Error - Stack is full\n";
-            return;
-        }
-        Node *newNode = new Node(val);
+    void push(const T& val) {
+        Node<T> *node = new Node<T>(val);
         
-        newNode->next = head;
-        head = newNode;
-        top++;
+        node->next = top;
+        top = node;
     }
-    int pop() {
-        if (isEmpty()) {
-            cout << "The stack is empty\n";
-            return -1;
-        }
-        int val = head->val;
-        Node *temp = head;
-        head = head->next;
+
+    void pop() {
+        Node<T> *temp = top;
+        top = top->next;
         delete temp;
-
-        return val;
     }
 
-    bool isFound(int key) {
-        Node *temp = head;
-        while (temp != nullptr) {
-            if (temp->val == key)
-                return true;
-            temp = temp->next;
+    void print() {
+        if (top == nullptr)
+            return;
+        Node<T> *curr = top;
+        while (curr) {
+            std::cout << curr->val << "\t";
+            curr = curr->next;
         }
-        return false;
+        std::cout << "\n";
     }
-
-    bool isEmpty() {
-        return (head==nullptr);
-    }
-
-    bool isFull() {
-        return (top==CAPACITY);
-    }
-
-    int count() {
-        return top;
-    }
-
-    void display() {
-        Node *temp = head;
-        while (temp != NULL) {
-            cout << temp->val << "\t";
-            temp = temp->next;
-        }
-        cout << endl;
-    }
-
 };
 
-int main () {
-    cout << "Stack ADT LinkedList Based Implementation\n";
+int main() {
+    Stack<std::string> stk;
 
-    // Create stack
-    Stack stk(10);
-
-
-    // Check if stack is empty
-    stk.isEmpty() ? cout << "The stack is empty\n" : cout << stk.count() << " Nodes\n";
-
-    // Push data
-    stk.push(10);
-    stk.push(20);
-
-    if (stk.isFound(20))
-        cout << "Found!\n";
-    else
-        cout << "Not found!\n";
-    
-    stk.isEmpty() ? cout << "The stack is empty\n" : cout << stk.count() << " Nodes\n";
-    
-    // Display stack data
-    stk.display();
-
+    stk.push("Hello");
+    stk.push("World");
+    stk.print();
 
     stk.pop();
-    stk.display();
-    stk.pop();
-
-    if (stk.isFound(20))
-        cout << "Found!\n";
-    else
-        cout << "Not found!\n";
-    
-    /*
-    Methods:
-        - Create
-        - Push
-        - Pop
-        - isEmpty
-        - isFull
-        - Count
-        - Display
-        - isFound
-
-    */
+    stk.print();
 }
