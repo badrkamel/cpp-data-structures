@@ -2,65 +2,54 @@
 
 using namespace std;
 
-class Node {
-    public:
-    int value;
-    Node *next;
+struct Node {
+    int val;
+    Node *next = nullptr;
 
-    Node () {
-        value = 0;
-        next = NULL;
-    }
+    Node () {}
+    Node (int v) : val(v) {}
 };
 
 class Stack {
-    Node *top;
+    Node *head;
 
-    int SIZE;
-    int lenght;
-    int *items;
+    size_t CAPACITY;
+    size_t top;
 
     public:
-    Stack(int MAX_SIZE) {
-        top = NULL;
-        lenght = 0;
-        SIZE = MAX_SIZE;
+    Stack(size_t c) : CAPACITY(c) {
+        top = 0;
+        head = nullptr;
     }
 
-    void push(int value) {
+    void push(int val) {
         if (isFull()) {
             cout << "Error - Stack is full\n";
             return;
         }
-        Node *newNode = new Node();
-        newNode->value = value;
-
-        if (isEmpty()) {
-            newNode->next = NULL;
-        } else {
-            newNode->next = top;
-        }
-
-        top = newNode;
-        lenght++;
+        Node *newNode = new Node(val);
+        
+        newNode->next = head;
+        head = newNode;
+        top++;
     }
     int pop() {
         if (isEmpty()) {
             cout << "The stack is empty\n";
             return -1;
         }
-        int value = top->value;
-        Node *temp = top;
-        top = top->next;
+        int val = head->val;
+        Node *temp = head;
+        head = head->next;
         delete temp;
 
-        return value;
+        return val;
     }
 
     bool isFound(int key) {
-        Node *temp = top;
-        while (temp != NULL) {
-            if (temp->value == key)
+        Node *temp = head;
+        while (temp != nullptr) {
+            if (temp->val == key)
                 return true;
             temp = temp->next;
         }
@@ -68,28 +57,21 @@ class Stack {
     }
 
     bool isEmpty() {
-        return (top==NULL);
+        return (head==nullptr);
     }
 
     bool isFull() {
-        return (lenght==SIZE);
+        return (top==CAPACITY);
     }
 
     int count() {
-        return lenght;
-    }
-
-    int peek() {
-        if (!isEmpty())
-            return top->value;
-        cout << "The stack is empty\n";
-        return 0;
+        return top;
     }
 
     void display() {
-        Node *temp = top;
+        Node *temp = head;
         while (temp != NULL) {
-            cout << temp->value << "\t";
+            cout << temp->val << "\t";
             temp = temp->next;
         }
         cout << endl;
@@ -98,56 +80,49 @@ class Stack {
 };
 
 int main () {
-    cout << "Stack ADT LinkedList based Implementation\n";
+    cout << "Stack ADT LinkedList Based Implementation\n";
 
     // Create stack
     Stack stk(10);
 
 
     // Check if stack is empty
-    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack have " << stk.count() << " elements\n";
+    stk.isEmpty() ? cout << "The stack is empty\n" : cout << stk.count() << " Nodes\n";
 
     // Push data
     stk.push(10);
     stk.push(20);
 
-    if (stk.isFound(20)) {
+    if (stk.isFound(20))
         cout << "Found!\n";
-    } else {
+    else
         cout << "Not found!\n";
-    }
-
-    stk.isEmpty() ? cout << "The stack is empty\n" : cout << "The stack have " << stk.count() << " elements\n";
+    
+    stk.isEmpty() ? cout << "The stack is empty\n" : cout << stk.count() << " Nodes\n";
     
     // Display stack data
     stk.display();
 
-    // Return last element in the stack
-    cout << stk.peek() << endl;
 
     stk.pop();
     stk.display();
     stk.pop();
 
-    if (stk.isFound(20)) {
+    if (stk.isFound(20))
         cout << "Found!\n";
-    } else {
+    else
         cout << "Not found!\n";
-    }
     
-    cout << stk.peek() << endl;
-
-        /*
-        Methods:
-            - Create
-            - Push
-            - Pop
-            - isEmpty
-            - isFull
-            - Count
-            - Display
-            - peek
-            - isFound
+    /*
+    Methods:
+        - Create
+        - Push
+        - Pop
+        - isEmpty
+        - isFull
+        - Count
+        - Display
+        - isFound
 
     */
 }
