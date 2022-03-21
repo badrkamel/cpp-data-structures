@@ -24,6 +24,8 @@ template<typename T>  class Stack {
     }
 
     void pop() {
+        if (top == nullptr)
+            return;
         Node<T> *temp = top;
         top = top->next;
         delete temp;
