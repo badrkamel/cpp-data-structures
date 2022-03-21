@@ -1,54 +1,54 @@
 #include <iostream>
 
 template<typename T> struct Node {
-	T val;
-	Node *next = nullptr;
+    T val;
+    Node *next = nullptr;
 
-	Node () {}
-	Node (const T& v) : val(v) {}
+    Node () {}
+    Node (const T& v) : val(v) {}
 };
 
 template<typename T> class Queue {
-	Node<T> *front, *tail;
+    Node<T> *front, *tail;
 
 public:
-	Queue () {
-		front = tail = nullptr;
-	}
+    Queue () {
+        front = tail = nullptr;
+    }
 
-	void push(const T& val) {
-		Node<T> *node = new Node<T>(val);
+    void push(const T& val) {
+        Node<T> *node = new Node<T>(val);
 
-		if (front == nullptr)
-			front = tail = node;
-		tail->next = node;
-		tail = node;
-	}
+        if (front == nullptr)
+            front = tail = node;
+        tail->next = node;
+        tail = node;
+    }
 
-	void pop() {
-		if (front) {
-			Node<T> *temp = front;
-			front = front->next;
-			delete temp;
-		}
-	}
+    void pop() {
+        if (front) {
+            Node<T> *temp = front;
+            front = front->next;
+            delete temp;
+        }
+    }
 
-	void display() {
-		if (front) {
-			Node<T> *curr = front;
-			while (curr) {
-				std::cout << curr->val << "\t";
-				curr = curr->next;
-			}
-			std::cout << "\n";
-		}
-	}
+    void display() {
+        if (front) {
+            Node<T> *curr = front;
+            while (curr) {
+                std::cout << curr->val << "\t";
+                curr = curr->next;
+            }
+            std::cout << "\n";
+        }
+    }
 };
 
 int main() {
-	Queue<int> queue;
+    Queue<int> queue;
 
-	queue.push(10);
+    queue.push(10);
     queue.push(20);
     queue.push(30);
     queue.display(); // 10 20 30
