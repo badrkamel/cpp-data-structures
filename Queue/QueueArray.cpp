@@ -1,82 +1,65 @@
 #include <iostream>
 
-class Queue {
-    size_t capacity;
-    int front, tail;
+template<typename T> class Queue {
 
-    int *queue;
+	int front, tail;
+
+	size_t CAPACITY;
+	T *data;
 
 public:
-    Queue (size_t c) : capacity(c) {
-        front = tail = -1;
-        queue = new int[c];
-    }
+	Queue (size_t c) : CAPACITY(c) {
+		front = tail = -1;
+		data = new T[c];
+	}
 
-    bool isFull() {
-        return (tail+1)%capacity == front;
-    }
+	bool isFull() {
+		return (tail+1)%CAPACITY == front;
+	}
 
-    bool isEmpty() {
-        return (front == -1);
-    }
+	bool empty() {
+		return (tail == -1);
+	}
 
-    void enQueue(int val) {
-        if (isFull()) {
-            std::cout << "Queue is full\n";
-        } else {
-            if (isEmpty())
-                front = 0;
-            tail = (tail + 1)%capacity;
-            queue[tail] = val;
-        }
-    }
+	void push(const T& val) {
+		if (isFull())
+			return;
+		if (empty())
+			front = 0;
 
-    void deQueue() {
-        if (isEmpty()) {
-            std::cout << "Queue is empty\n";
-        } else {
-            queue[front] = 0;
-            if (front == tail)
-                front = tail = -1;
-            else
-                front = (front+1)%capacity;
-        }
-    }
+		tail = (tail+1)%CAPACITY;
+		data[tail] = val;
+	}
+	void pop() {
+		if (empty())
+			return;
 
-    void print() {
-        if (isEmpty())
-            return;
-        size_t i;
-        for (i = front; i != tail; i = (i+1)%capacity)
-            std::cout << queue[i] << " ";
-        std::cout << queue[tail] << "\n";
-    }
+		if (front == tail)
+			front = tail = -1;
+		else
+			front = (front+1)%CAPACITY;
+
+	}
+	void print() {
+		if (empty())
+			return;
+		for (size_t i = front; i != tail; i = (i+1)%CAPACITY)
+			std::cout << data[i] << "\t";
+		std::cout << data[tail] << "\n";
+	}
 };
 
 int main() {
-    Queue q(5);
+	Queue<int> queue(5);
 
-    q.enQueue(10);
-    q.enQueue(20);
-    q.enQueue(30);
-    q.print(); // 10 20 30
+	queue.push(10);
+	queue.push(20);
+	queue.push(30);
+	queue.print();
 
-    q.deQueue();
-    q.deQueue();
-    q.print(); // 30
-
-    q.enQueue(40);
-    q.enQueue(50);
-    q.enQueue(60);
-    q.enQueue(70);
-    q.enQueue(80);
-    q.print(); // 30 40 50 60 70
-
-    q.deQueue();
-    q.print(); // 40 50 60 70
-
-    q.deQueue();
-    q.deQueue();
-    q.deQueue();
-    q.print(); // 70
+	queue.pop();
+	queue.pop();
+	queue.push(40);
+	queue.push(50);
+	queue.print();
 }
